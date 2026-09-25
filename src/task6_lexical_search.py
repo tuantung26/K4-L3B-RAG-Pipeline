@@ -5,42 +5,82 @@ Dùng cùng corpus chunks với Task 5. BM25 phù hợp với từ khóa chính 
 liệu và tên riêng. Output phải theo SearchResult và sort score giảm dần.
 """
 
+import numpy as np
+from rank_bm25 import BM25Okapi
+
 
 CORPUS: list[dict] = []
 
+# Cache index để không build lại mỗi lần gọi
+_bm25_index: BM25Okapi | None = None
+_bm25_corpus: list[dict] = []
 
-def build_bm25_index(corpus: list[dict]):
+
+def build_bm25_index(corpus: list[dict]) -> BM25Okapi:
     """Tạo BM25 index từ cùng corpus chunks của Task 4."""
-    # TODO: Tokenize và tạo BM25 index.
-    #
-    # from rank_bm25 import BM25Okapi
-    # tokenized = [item["content"].lower().split() for item in corpus]
-    # return BM25Okapi(tokenized)
-    raise NotImplementedError("Implement build_bm25_index")
+    tokenized = [item["content"].lower().split() for item in corpus]
+    return BM25Okapi(tokenized)
+
+
+def _load_corpus_from_vectorstore() -> list[dict]:
+    """Lấy toàn bộ chunks từ ChromaDB để build BM25 corpus."""
+    from .task4_chunking_indexing import get_collection
+
+    collection = get_collection()
+    total = collection.count()
+    if total == 0:
+        return []
+    response = collection.get(
+        limit=total,
+        include=["documents", "metadatas"],
+    )
+    corpus = []
+    for item_id, content, metadata in zip(
+        response["ids"],
+        response["documents"],
+        response["metadatas"],
+    ):
+        corpus.append({
+            "id": item_id,
+            "content": content,
+            "metadata": metadata,
+        })
+    return corpus
+
+
+def _get_bm25() -> tuple[BM25Okapi, list[dict]]:
+    """Lazy-load BM25 index và corpus từ ChromaDB."""
+    global _bm25_index, _bm25_corpus
+
+    if _bm25_index is None:
+        _bm25_corpus = CORPUS if CORPUS else _load_corpus_from_vectorstore()
+        _bm25_index = build_bm25_index(_bm25_corpus)
+
+    return _bm25_index, _bm25_corpus
 
 
 def lexical_search(query: str, top_k: int = 10) -> list[dict]:
     """Trả về BM25 SearchResult theo score giảm dần."""
-    # TODO: Tính BM25 scores và map lại corpus.
-    #
-    # import numpy as np
-    # bm25 = build_bm25_index(CORPUS)
-    # scores = bm25.get_scores(query.lower().split())
-    # indices = np.argsort(scores)[::-1][:top_k]
-    # results = []
-    # for index in indices:
-    #     if scores[index] <= 0:
-    #         continue
-    #     item = CORPUS[index]
-    #     results.append({
-    #         "id": item["id"],
-    #         "content": item["content"],
-    #         "score": float(scores[index]),
-    #         "metadata": item["metadata"],
-    #         "retrieval_method": "bm25",
-    #     })
-    # return results
-    raise NotImplementedError("Implement lexical_search")
+    bm25, corpus = _get_bm25()
+    if not corpus:
+        return []
+
+    scores = bm25.get_scores(query.lower().split())
+    indices = np.argsort(scores)[::-1][:top_k]
+
+    results = []
+    for index in indices:
+        if scores[index] <= 0:
+            continue
+        item = corpus[index]
+        results.append({
+            "id": item["id"],
+            "content": item["content"],
+            "score": float(scores[index]),
+            "metadata": item["metadata"],
+            "retrieval_method": "bm25",
+        })
+    return results
 
 
 if __name__ == "__main__":
