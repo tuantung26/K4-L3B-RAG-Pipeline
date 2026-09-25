@@ -5,7 +5,9 @@ Dùng cùng corpus chunks với Task 5. BM25 phù hợp với từ khóa chính 
 liệu và tên riêng. Output phải theo SearchResult và sort score giảm dần.
 """
 
+# pyrefly: ignore [missing-import]
 import numpy as np
+# pyrefly: ignore [missing-import]
 from rank_bm25 import BM25Okapi
 
 
@@ -49,11 +51,24 @@ def _load_corpus_from_vectorstore() -> list[dict]:
 
 
 def _get_bm25() -> tuple[BM25Okapi, list[dict]]:
-    """Lazy-load BM25 index và corpus từ ChromaDB."""
+    """Lazy-load BM25 index và corpus từ ChromaDB.
+
+    Nếu module-level CORPUS được set (e.g. qua monkeypatch trong test),
+    luôn build lại index từ CORPUS đó để tránh dùng cache stale.
+    """
     global _bm25_index, _bm25_corpus
 
+    # Nếu CORPUS được inject từ ngoài (test hoặc caller), ưu tiên dùng nó
+    if CORPUS:
+        if CORPUS is not _bm25_corpus:
+            # CORPUS thay đổi → build lại index
+            _bm25_corpus = CORPUS
+            _bm25_index = build_bm25_index(_bm25_corpus)
+        return _bm25_index, _bm25_corpus
+
+    # Không có CORPUS inject → lazy-load từ ChromaDB
     if _bm25_index is None:
-        _bm25_corpus = CORPUS if CORPUS else _load_corpus_from_vectorstore()
+        _bm25_corpus = _load_corpus_from_vectorstore()
         _bm25_index = build_bm25_index(_bm25_corpus)
 
     return _bm25_index, _bm25_corpus

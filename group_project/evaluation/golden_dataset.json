@@ -1,0 +1,77 @@
+[
+  {
+    "question": "Nghị định số 165/2024/NĐ-CP có hiệu lực từ ngày nào?",
+    "expected_answer": "Nghị định số 165/2024/NĐ-CP có hiệu lực thi hành kể từ ngày 01 tháng 01 năm 2025.",
+    "expected_context": "Nghị định số 165/2024/NĐ-CP ngày 26 tháng 12 năm 2024 của Chính phủ quy định chi tiết, hướng dẫn thi hành một số điều của Luật Đường bộ và Điều 77 Luật Trật tự, an toàn giao thông đường bộ, có hiệu lực thi hành kể từ ngày 01 tháng 01 năm 2025."
+  },
+  {
+    "question": "Nghị định số 241/2026/NĐ-CP có hiệu lực từ ngày nào?",
+    "expected_answer": "Nghị định số 241/2026/NĐ-CP có hiệu lực thi hành kể từ ngày 01 tháng 07 năm 2026.",
+    "expected_context": "Nghị định số 241/2026/NĐ-CP ngày 26 tháng 6 năm 2026 của Chính phủ sửa đổi, bổ sung một số điều của Nghị định số 165/2024/NĐ-CP, có hiệu lực thi hành kể từ ngày 01 tháng 07 năm 2026."
+  },
+  {
+    "question": "Những quốc lộ nào không được phân cấp cho UBND cấp tỉnh quản lý?",
+    "expected_answer": "Quốc lộ không phân cấp gồm: Quốc lộ 1, Đường Hồ Chí Minh, quốc lộ có cấp kỹ thuật là đường cao tốc, quốc lộ có yêu cầu đặc biệt về bảo đảm quốc phòng, an ninh và các trường hợp khác theo quyết định của Thủ tướng Chính phủ.",
+    "expected_context": "Quốc lộ trong quy hoạch mạng lưới đường bộ không phân cấp gồm: Quốc lộ 1, Đường Hồ Chí Minh, quốc lộ có cấp kỹ thuật là đường cao tốc, quốc lộ có yêu cầu đặc biệt về bảo đảm quốc phòng, an ninh và các trường hợp khác theo quyết định của Thủ tướng Chính phủ."
+  },
+  {
+    "question": "UBND cấp tỉnh phải báo cáo Bộ Xây dựng tình hình quản lý quốc lộ được phân cấp vào thời điểm nào trong năm?",
+    "expected_answer": "UBND cấp tỉnh phải báo cáo Bộ Xây dựng định kỳ trước ngày 10 tháng 6 và ngày 10 tháng 12 hằng năm.",
+    "expected_context": "Định kỳ trước ngày 10 tháng 6 và ngày 10 tháng 12 hằng năm, báo cáo Bộ Xây dựng tình hình đầu tư xây dựng, quản lý, vận hành, khai thác, sử dụng, bảo trì, bảo vệ kết cấu hạ tầng đường bộ là quốc lộ được phân cấp."
+  },
+  {
+    "question": "Nghị định 236/2026/NĐ-CP có hiệu lực từ ngày nào?",
+    "expected_answer": "Nghị định 236/2026/NĐ-CP có hiệu lực thi hành từ ngày 1/7/2026.",
+    "expected_context": "Nghị định có hiệu lực thi hành từ 1/7/2026."
+  },
+  {
+    "question": "Cơ quan nào chịu trách nhiệm quản lý cơ sở dữ liệu về xử lý vi phạm hành chính về trật tự, an toàn giao thông đường bộ?",
+    "expected_answer": "Bộ Công an có trách nhiệm xây dựng và quản lý cơ sở dữ liệu về xử lý vi phạm hành chính về trật tự, an toàn giao thông đường bộ.",
+    "expected_context": "Bộ Công an có trách nhiệm xây dựng, quản lý cơ sở dữ liệu sau đây: Cơ sở dữ liệu về xử lý vi phạm hành chính về trật tự, an toàn giao thông đường bộ."
+  },
+  {
+    "question": "Bộ Tài chính có trách nhiệm quản lý những cơ sở dữ liệu nào liên quan đến giao thông đường bộ?",
+    "expected_answer": "Bộ Tài chính có trách nhiệm xây dựng và quản lý: Cơ sở dữ liệu về xe xuất khẩu, nhập khẩu; Cơ sở dữ liệu về hóa đơn, chứng từ; và Cơ sở dữ liệu về lệ phí trước bạ xe.",
+    "expected_context": "Bộ Tài chính có trách nhiệm xây dựng, quản lý cơ sở dữ liệu sau đây: Cơ sở dữ liệu về xe xuất khẩu, nhập khẩu; Cơ sở dữ liệu về hóa đơn, chứng từ; Cơ sở dữ liệu về lệ phí trước bạ xe."
+  },
+  {
+    "question": "Cơ sở dữ liệu về trật tự, an toàn giao thông đường bộ do lực lượng nào quản lý và vận hành?",
+    "expected_answer": "Cơ sở dữ liệu về trật tự, an toàn giao thông đường bộ được xây dựng thống nhất trên toàn quốc, do lực lượng Cảnh sát giao thông quản lý, vận hành, khai thác.",
+    "expected_context": "Cơ sở dữ liệu về trật tự, an toàn giao thông đường bộ được xây dựng thống nhất trên toàn quốc, do lực lượng Cảnh sát giao thông quản lý, vận hành, khai thác, dùng chung cho các cơ quan, tổ chức, cá nhân có thẩm quyền."
+  },
+  {
+    "question": "Ai được phép lắp đặt thiết bị phát tín hiệu xe ưu tiên và điều kiện là gì?",
+    "expected_answer": "Cơ quan, tổ chức, cá nhân chỉ được lắp đặt thiết bị phát tín hiệu của xe ưu tiên trên các loại xe quy định tại khoản 1 Điều 27 Luật Trật tự, an toàn giao thông đường bộ (trừ đoàn xe tang) và phải có giấy phép sử dụng do cơ quan có thẩm quyền cấp.",
+    "expected_context": "Cơ quan, tổ chức, cá nhân chỉ được lắp đặt thiết bị phát tín hiệu của xe ưu tiên trên các loại xe quy định tại khoản 1 Điều 27 Luật Trật tự, an toàn giao thông đường bộ (trừ đoàn xe tang) và phải có giấy phép sử dụng do cơ quan có thẩm quyền cấp."
+  },
+  {
+    "question": "Cuộc thi tìm hiểu pháp luật về an toàn giao thông đường bộ năm 2026 do cơ quan nào tổ chức?",
+    "expected_answer": "Cuộc thi do Cục Cảnh sát giao thông (Bộ Công an) phối hợp với Báo Dân trí và Quỹ bảo hiểm xe cơ giới (Hiệp hội Bảo hiểm Việt Nam) tổ chức.",
+    "expected_context": "Cục Cảnh sát giao thông (Bộ Công an) phối hợp với Báo Dân trí, Quỹ bảo hiểm xe cơ giới (Hiệp hội Bảo hiểm Việt Nam) tổ chức Lễ phát động Cuộc thi Tìm hiểu pháp luật về Trật tự, an toàn giao thông đường bộ năm 2026."
+  },
+  {
+    "question": "Cuộc thi tìm hiểu pháp luật giao thông năm 2026 diễn ra trong khoảng thời gian nào?",
+    "expected_answer": "Cuộc thi được tổ chức từ tháng 9 đến tháng 11 năm 2026 trên quy mô toàn quốc.",
+    "expected_context": "Cuộc thi được tổ chức từ tháng 9 tới tháng 11/2026 trên quy mô toàn quốc."
+  },
+  {
+    "question": "Mỗi bài thi trực tuyến trong cuộc thi pháp luật giao thông 2026 có cấu trúc như thế nào?",
+    "expected_answer": "Mỗi bài thi trực tuyến có 9 câu hỏi, gồm 3 phần: trắc nghiệm (5 câu, trong 5 phút), Giải trình tình huống giao thông (3 tình huống) và Kiến nghị đề xuất giải pháp (tối đa 1.000 từ hoặc video 5 phút, tối đa 50MB).",
+    "expected_context": "Mỗi bài thi trực tuyến sẽ có 9 câu hỏi, gồm 3 phần là trắc nghiệm (5 câu hỏi trả lời trong vòng 5 phút), Giải trình tình huống giao thông (3 tình huống) và Kiến nghị đề xuất giải pháp (tối đa 1.000 từ hoặc video dài 5 phút, tối đa 50MB)."
+  },
+  {
+    "question": "Giải Nhất của cuộc thi tìm hiểu pháp luật giao thông năm 2026 trực tuyến có giá trị bao nhiêu?",
+    "expected_answer": "Giải Nhất trực tuyến có giá trị 20 triệu đồng.",
+    "expected_context": "01 giải Nhất trị giá 20 triệu đồng, 3 giải Nhì trị giá 15 triệu đồng/giải, 5 giải Ba trị giá 10 triệu đồng/giải và 15 giải khuyến khích mỗi giải 5 triệu đồng."
+  },
+  {
+    "question": "Hình thức thi trực tiếp của cuộc thi pháp luật giao thông 2026 được tổ chức ở đâu và khi nào?",
+    "expected_answer": "Thi trực tiếp tổ chức tại 4 trường đại học ở Hà Nội (tháng 10) và 4 trường THPT tại TP.HCM (tháng 11). Mỗi trường thành lập một đội gồm 5 thành viên.",
+    "expected_context": "Ban Tổ chức sẽ lựa chọn 4 trường đại học tại Hà Nội và 4 trường THPT tại TPHCM. Mỗi trường thành lập một đội gồm 5 thành viên. Các đội tại Hà Nội dự kiến thi vào tháng 10, tại TPHCM sẽ tổ chức vào tháng 11."
+  },
+  {
+    "question": "Nghị định 236/2026/NĐ-CP sửa đổi, bổ sung Nghị định nào về trật tự, an toàn giao thông đường bộ?",
+    "expected_answer": "Nghị định 236/2026/NĐ-CP sửa đổi, bổ sung một số điều của Nghị định số 151/2024/NĐ-CP ngày 15/11/2024 (được sửa đổi bởi Nghị định số 184/2025/NĐ-CP ngày 01/7/2025) quy định chi tiết một số điều và biện pháp thi hành Luật Trật tự, an toàn giao thông đường bộ.",
+    "expected_context": "Chính phủ ban hành Nghị định số 236/2026/NĐ-CP sửa đổi, bổ sung một số điều của Nghị định số 151/2024/NĐ-CP ngày 15/11/2024 của Chính phủ quy định chi tiết một số điều và biện pháp thi hành Luật Trật tự, an toàn giao thông đường bộ được sửa đổi, bổ sung bởi Nghị định số 184/2025/NĐ-CP ngày 01/7/2025 của Chính phủ."
+  }
+]
