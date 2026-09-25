@@ -1,45 +1,36 @@
 """
 Task 2 — Crawl bài viết/thông báo.
-
-Hướng dẫn:
-    1. Điền tối thiểu 5 URL công khai vào ARTICLE_URLS.
-    2. Crawl từng URL bằng Crawl4AI.
-    3. Lưu mỗi bài thành một JSON trong data/landing/news/.
-    4. Giữ đủ url, title, date_crawled và content_markdown.
-
-Cài browser trước khi chạy:
-    python -m playwright install chromium
-    
--> Dùng Firecrawl or bất cứ công cụ nào bạn quen    
 """
 
 import asyncio
 import json
 from pathlib import Path
+from datetime import datetime
+
+from crawl4ai import AsyncWebCrawler
 
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "landing" / "news"
 
 ARTICLE_URLS = [
-    # TODO: Thêm ít nhất 5 public URL.
+    "https://baochinhphu.vn/phat-dong-cuoc-thi-tim-hieu-phap-luat-ve-trat-tu-an-toan-giao-thong-duong-bo-nam-2026-10226092316262017.htm",
+    "https://cms.baochinhphu.vn/sua-doi-bo-sung-mot-so-quy-dinh-ve-trat-tu-an-toan-giao-thong-duong-bo-102260629181414298.htm",
+    "https://baochinhphu.vn/nhung-luu-y-khi-trang-bi-ghe-an-toan-cho-tre-em-102260615165901115.htm",
+    "https://baochinhphu.vn/quy-dinh-ve-thiet-bi-giam-sat-tren-phuong-tien-giao-thong-duong-bo-102260818170314883.htm",
+    "https://baochinhphu.vn/bao-dam-trat-tu-an-toan-giao-thong-dip-nghi-le-02-9-va-thang-cao-diem-hoc-sinh-den-truong-102260819095527811.htm",
 ]
 
 
 async def crawl_article(url: str) -> dict:
-    # TODO: Implement crawling logic.
-    #
-    # from datetime import datetime
-    # from crawl4ai import AsyncWebCrawler
-    #
-    # async with AsyncWebCrawler() as crawler:
-    #     result = await crawler.arun(url=url)
-    #     return {
-    #         "url": url,
-    #         "title": result.metadata.get("title", "Unknown"),
-    #         "date_crawled": datetime.now().isoformat(),
-    #         "content_markdown": result.markdown,
-    #     }
-    raise NotImplementedError("Implement crawl_article")
+    async with AsyncWebCrawler() as crawler:
+        result = await crawler.arun(url=url)
+
+        return {
+            "url": url,
+            "title": result.metadata.get("title", "Unknown"),
+            "date_crawled": datetime.now().isoformat(),
+            "content_markdown": result.markdown,
+        }
 
 
 async def crawl_all() -> None:
@@ -49,12 +40,20 @@ async def crawl_all() -> None:
     for index, url in enumerate(ARTICLE_URLS, 1):
         try:
             article = await crawl_article(url)
+
             output = DATA_DIR / f"article_{index:02d}.json"
+
             output.write_text(
-                json.dumps(article, ensure_ascii=False, indent=2),
+                json.dumps(
+                    article,
+                    ensure_ascii=False,
+                    indent=2
+                ),
                 encoding="utf-8",
             )
+
             print(f"Saved: {output}")
+
         except Exception as error:
             print(f"Failed: {url} — {error}")
 
