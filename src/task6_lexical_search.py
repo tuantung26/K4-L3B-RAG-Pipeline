@@ -50,7 +50,7 @@ def _load_corpus_from_vectorstore() -> list[dict]:
     return corpus
 
 
-def _get_bm25() -> tuple[BM25Okapi, list[dict]]:
+def _get_bm25() -> tuple[BM25Okapi | None, list[dict]]:
     """Lazy-load BM25 index và corpus từ ChromaDB.
 
     Nếu module-level CORPUS được set (e.g. qua monkeypatch trong test),
@@ -69,6 +69,8 @@ def _get_bm25() -> tuple[BM25Okapi, list[dict]]:
     # Không có CORPUS inject → lazy-load từ ChromaDB
     if _bm25_index is None:
         _bm25_corpus = _load_corpus_from_vectorstore()
+        if not _bm25_corpus:
+            return None, []
         _bm25_index = build_bm25_index(_bm25_corpus)
 
     return _bm25_index, _bm25_corpus
@@ -77,15 +79,27 @@ def _get_bm25() -> tuple[BM25Okapi, list[dict]]:
 def lexical_search(query: str, top_k: int = 10) -> list[dict]:
     """Trả về BM25 SearchResult theo score giảm dần."""
     bm25, corpus = _get_bm25()
-    if not corpus:
+    if bm25 is None or not corpus:
         return []
 
-    scores = bm25.get_scores(query.lower().split())
-    indices = np.argsort(scores)[::-1][:top_k]
+    query_tokens = query.lower().split()
+    scores = bm25.get_scores(query_tokens)
+    indices = sorted(
+        range(len(scores)),
+        key=lambda index: (
+            float(scores[index]),
+            sum(token in corpus[index]["content"].lower().split() for token in query_tokens),
+        ),
+        reverse=True,
+    )[:top_k]
 
     results = []
     for index in indices:
-        if scores[index] <= 0:
+        overlap = sum(
+            token in corpus[index]["content"].lower().split()
+            for token in query_tokens
+        )
+        if scores[index] <= 0 and overlap == 0:
             continue
         item = corpus[index]
         results.append({

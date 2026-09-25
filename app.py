@@ -46,10 +46,13 @@ st.markdown(
 
 def backend_status() -> tuple[bool, str]:
     provider = os.getenv("LLM_PROVIDER", "openai").lower()
+    model = os.getenv("LLM_MODEL", "") or "default model"
     key_names = {"openai": "OPENAI_API_KEY", "gemini": "GEMINI_API_KEY", "anthropic": "ANTHROPIC_API_KEY"}
     key_name = key_names.get(provider)
+    if key_name is None:
+        return False, f"Unsupported provider: {provider}"
     if key_name and os.getenv(key_name):
-        return True, f"{provider.title()} ready"
+        return True, f"{provider.title()} ready · {model}"
     return False, f"{provider.title()} needs an API key"
 
 
@@ -120,10 +123,21 @@ if query:
                 answer = result["answer"]
                 sources = result.get("sources", [])
             except Exception as error:
-                answer = (
-                    "The RAG pipeline is not ready yet. Complete indexing and configure "
-                    f"the language model provider before asking this question.\n\n`{error}`"
-                )
+                error_text = str(error)
+                if "API" in error_text or "key" in error_text.lower() or "provider" in error_text.lower():
+                    answer = (
+                        "The language model provider is not configured. Check `LLM_PROVIDER` "
+                        "and its matching API key in `.env`.\n\n"
+                        f"`{error_text}`"
+                    )
+                elif "collection" in error_text.lower() or "index" in error_text.lower():
+                    answer = (
+                        "The document index is not ready. Run the indexing step, then restart "
+                        "Streamlit.\n\n"
+                        f"`{error_text}`"
+                    )
+                else:
+                    answer = f"The request could not be completed.\n\n`{error_text}`"
                 sources = []
         st.markdown(answer)
         render_sources(sources)

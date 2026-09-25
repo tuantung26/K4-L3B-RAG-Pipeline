@@ -77,7 +77,7 @@ def call_llm(system_prompt: str, user_message: str) -> str:
 
         client = genai.Client()
         response = client.models.generate_content(
-            model=LLM_MODEL or "gemini-2.0-flash",
+            model=LLM_MODEL or "gemini-3.5-flash",
             contents=f"{system_prompt}\n\n{user_message}",
         )
         return response.text or _SAFE_REFUSAL
